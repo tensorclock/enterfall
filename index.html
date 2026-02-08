@@ -17,31 +17,65 @@
         overflow: hidden;
     }
 
-    h1, h3 {
-     
+    h1,
+    h3 {
+
         text-align: center;
     }
 </style>
 
 <body>
 
-    <script type="module">
-        let timer = 0;
-        function gameloop() {
-            timer += 1;
-            document.getElementById('timer').innerText = timer;
-            setTimeout(gameloop, 1000);
-        }   
 
-
-        document.getElementById('timer').innerText = timer;
-
-        gameloop();
-    </script>
     <div>
         <h1>EnterFall</h1>
         <h3 id="timer"></h3>
+        <button id="pauseButton2" onclick="pause()">Pause2</button>
+        <button id="playButton" onclick="play()">Play</button>
+        <p id="playerphase"></p>
+        <p id="intervalid"></p>
+
     </div>
+
+
+
+    <script>
+        let timer = 0;
+        let playerphase = 'pause';
+        var intervalid = 0;
+
+        function update() {
+            timer += 1;
+            document.getElementById('timer').innerText = timer;
+            document.getElementById('playerphase').innerText = playerphase;
+
+        }
+
+
+
+        function play() {
+            if (playerphase === 'pause') {
+                playerphase = 'play';
+                intervalid = setInterval(() => {
+                    update();
+                }, 1000);
+                console.log(intervalid);
+                return;
+            }
+
+        }
+
+        function pause() {
+            playerphase = 'pause';
+            console.log(intervalid);
+            clearInterval(intervalid);
+        }
+
+        document.getElementById('timer').innerText = timer;
+        document.getElementById('intervalid').innerText = intervalid;
+
+        play();
+    </script>
 </body>
 
 </html>
