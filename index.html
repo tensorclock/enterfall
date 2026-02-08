@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>three.js</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<style>
+    html,
+    body {
+        color: red;
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    h1, h3 {
+     
+        text-align: center;
+    }
+</style>
+
+<body>
+
+    <script type="module">
+        let timer = 0;
+        function gameloop() {
+            timer += 1;
+            document.getElementById('timer').innerText = timer;
+            setTimeout(gameloop, 1000);
+        }   
+
+
+        document.getElementById('timer').innerText = timer;
+
+        gameloop();
+    </script>
+    <div>
+        <h1>EnterFall</h1>
+        <h3 id="timer"></h3>
+    </div>
+</body>
+
+</html>
