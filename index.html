@@ -92,7 +92,11 @@
         }
 
         function tick() {
+<<<<<<< HEAD
             timer += dt;
+=======
+            timer = Math.round((timer + dt));
+>>>>>>> 3a7f7e98d4ece1066c8928fe1f428fffa8f38140
             document.getElementById('timer').innerText = timer;
             tickPhrase();
         }
@@ -130,7 +134,11 @@
 
         function fail() {
 
+<<<<<<< HEAD
             dt = dt / scalar;
+=======
+            dt = Math.round(dt / scalar * 100) / 100;
+>>>>>>> 3a7f7e98d4ece1066c8928fe1f428fffa8f38140
            /*  score = score - 1;
             document.getElementById('score').innerText = score; */
 
@@ -147,7 +155,11 @@
             inPhrase = [];
             document.getElementById('inPhrase').innerText = inPhrase.join('');
 
+<<<<<<< HEAD
             dt = dt * scalar;
+=======
+            dt = Math.round(dt * scalar * 100) / 100;
+>>>>>>> 3a7f7e98d4ece1066c8928fe1f428fffa8f38140
             document.getElementById('dt').innerText = dt;
 
         }
