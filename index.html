@@ -55,6 +55,8 @@
     <div>
         <h1>⏎fall</h1>
         <h3 id="timer"></h3>
+        <h3 id="dt"></h3>
+
         <button id="pauseButton" onclick="pause()">⏸</button>
         <button id="playButton" onclick="play()">▶︎</button>
         <p id="score"></p>
@@ -77,7 +79,8 @@
         var playerphase = 'pause';
         var intervalid = 0;
         var dt = 1;
-        var phrases = ['hello', 'just cause', 'apple', 'funny', 'damn', 'javascript', 'programming', 'typing', 'game', 'challenge', 'keyboard', 'random', 'phrase', 'timer', 'score'];
+        var scalar = 1.1;
+        var phrases = ['hello', 'just', 'apple', 'funny', 'damn', 'javascript', 'programming', 'typing', 'game', 'challenge', 'keyboard', 'random', 'phrase', 'timer', 'score'];
         var phrase = phrases[Math.floor(Math.random() * phrases.length)];
         var inPhrase = [];
         const sample = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -88,51 +91,74 @@
             snd.play();
         }
 
-
-
-        function update() {
+        function tick() {
             timer += dt;
             document.getElementById('timer').innerText = timer;
-            updatePhraseSignal();
-            updatePhrase();
+            tickPhrase();
         }
 
-        function updatePhraseSignal() {
+        function tickPhrase() {
             phraseTimer = Math.max(0, phraseTimer - dt);
             if (phraseTimer === 0) {
-                phraseSignal = 1;
-            } else {
-                phraseSignal = 0;
-            }
-
-        }
-
-        function updatePhrase() {
-            if (phraseSignal === 1) {
-
-                inPhrase = [];
-                document.getElementById('inPhrase').innerText = inPhrase.join('');
-
+                fail();
+                phraseTimer = dphraseTimer;
                 phrase = sample(phrases);
                 document.getElementById('phrase').innerText = phrase;
 
-                phraseTimer = dphraseTimer;
+            } else if (inPhrase.join('').includes(phrase)) {
+                {
+                    succeed();
+                    phraseTimer = dphraseTimer;
+                    phrase = sample(phrases);
+                    document.getElementById('phrase').innerText = phrase;
+
+                }
             }
+        }
+
+        function updatePhrase() {
+
+            inPhrase = [];
+            document.getElementById('inPhrase').innerText = inPhrase.join('');
+
+            phrase = sample(phrases);
+            document.getElementById('phrase').innerText = phrase;
+
+            phraseTimer = dphraseTimer;
+
+        }
+
+        function fail() {
+
+            dt = dt / scalar;
+           /*  score = score - 1;
+            document.getElementById('score').innerText = score; */
+
+            document.getElementById('dt').innerText = dt;
+
+        }
+
+        function succeed() {
+            beep();
+
+            score = score + dt;
+            document.getElementById('score').innerText = score;
+
+            inPhrase = [];
+            document.getElementById('inPhrase').innerText = inPhrase.join('');
+
+            dt = dt * scalar;
+            document.getElementById('dt').innerText = dt;
+
         }
 
         function checkPhrase() {
 
             if (inPhrase.join('').includes(phrase)) {
-                beep();
+                succeed();
 
-                inPhrase = [];
-                document.getElementById('inPhrase').innerText = inPhrase.join('');
-
-                score++;
-                document.getElementById('score').innerText = score;
-
-                phraseSignal = 1;
-                updatePhrase();
+            } else if (phraseTimer === 0) {
+                fail();
             }
 
         }
@@ -144,7 +170,6 @@
             inPhrase.push(key);
             document.getElementById('inPhrase').innerText = inPhrase.join('');
 
-            checkPhrase();
 
         }
 
@@ -152,7 +177,7 @@
             if (playerphase === 'pause') {
                 playerphase = 'play';
                 intervalid = setInterval(() => {
-                    update();
+                    tick();
                 }, dt);
                 console.log(intervalid);
                 return;
@@ -166,16 +191,21 @@
             clearInterval(intervalid);
         }
 
-        document.getElementById('timer').innerText = timer;
-        document.getElementById('phrase').innerText = phrase;
-        document.getElementById('inPhrase').innerText = inPhrase.join('');
-        document.getElementById('score').innerText = score;
+        function init() {
+            document.getElementById('timer').innerText = timer;
+            document.getElementById('phrase').innerText = phrase;
+            document.getElementById('inPhrase').innerText = inPhrase.join('');
+            document.getElementById('score').innerText = score;
+            document.getElementById('dt').innerText = dt;
 
 
-        document.addEventListener('keydown', keyboardInput);
+            document.addEventListener('keydown', keyboardInput);
 
+            play();
 
-        play();
+        }
+
+        init();
     </script>
 </body>
 
