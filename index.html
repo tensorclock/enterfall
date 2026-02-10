@@ -120,11 +120,7 @@
             }
         }
 
-        function keyboardInput(event) {
-
-            var key = event.key;
-            inPhrase.push(key);
-            document.getElementById('inPhrase').innerText = inPhrase.join('');
+        function checkPhrase() {
 
             if (inPhrase.join('').includes(phrase)) {
                 beep();
@@ -138,6 +134,17 @@
                 phraseSignal = 1;
                 updatePhrase();
             }
+
+        }
+
+
+        function keyboardInput(event) {
+
+            var key = event.key;
+            inPhrase.push(key);
+            document.getElementById('inPhrase').innerText = inPhrase.join('');
+
+            checkPhrase();
 
         }
 
