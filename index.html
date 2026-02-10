@@ -68,7 +68,11 @@
 
 
 
-    <script>
+    <script type="module">
+        import { generate } from 'https://cdn.jsdelivr.net/npm/random-words@2.0.1/+esm'
+        console.log(generate());
+
+
         var timer = 0;
 
         var dphraseTimer = 200;
@@ -80,8 +84,7 @@
         var intervalid = 0;
         var dt = 1;
         var scalar = 1.1;
-        var phrases = ['hello', 'just', 'apple', 'funny', 'damn', 'javascript', 'programming', 'typing', 'game', 'challenge', 'keyboard', 'random', 'phrase', 'timer', 'score'];
-        var phrase = phrases[Math.floor(Math.random() * phrases.length)];
+        var phrase = generate({ exactly: 1, wordsPerString: 1 })[0];
         var inPhrase = [];
         const sample = arr => arr[Math.floor(Math.random() * arr.length)];
         var score = 0;
@@ -102,14 +105,14 @@
             if (phraseTimer === 0) {
                 fail();
                 phraseTimer = dphraseTimer;
-                phrase = sample(phrases);
+                phrase = generate({ exactly: 1, wordsPerString: 1 })[0];
                 document.getElementById('phrase').innerText = phrase;
 
             } else if (inPhrase.join('').includes(phrase)) {
                 {
                     succeed();
                     phraseTimer = dphraseTimer;
-                    phrase = sample(phrases);
+                    phrase = generate({ exactly: 1, wordsPerString: 1 })[0];
                     document.getElementById('phrase').innerText = phrase;
 
                 }
@@ -121,7 +124,7 @@
             inPhrase = [];
             document.getElementById('inPhrase').innerText = inPhrase.join('');
 
-            phrase = sample(phrases);
+            phrase = generate({ exactly: 1, wordsPerString: 1 })[0];
             document.getElementById('phrase').innerText = phrase;
 
             phraseTimer = dphraseTimer;
@@ -131,8 +134,8 @@
         function fail() {
 
             dt = dt / scalar;
-           /*  score = score - 1;
-            document.getElementById('score').innerText = score; */
+            /*  score = score - 1;
+             document.getElementById('score').innerText = score; */
 
             document.getElementById('dt').innerText = dt;
 
