@@ -143,6 +143,8 @@
 
         function succeed() {
             beep();
+            dt = dt * scalar;
+
 
             score = score + dt;
             document.getElementById('score').innerText = score.toString().slice(0, 5);
@@ -154,7 +156,6 @@
         }
 
         function whatever() {
-            dt = dt * scalar;
 
             document.getElementById('dt').innerText = dt.toString().slice(0, 5);
 
