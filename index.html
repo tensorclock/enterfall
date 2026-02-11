@@ -57,8 +57,8 @@
         <h3 id="timer"></h3>
         <h3 id="dt"></h3>
 
-        <button id="pauseButton" >⏸</button>
-        <button id="playButton" >▶︎</button>
+        <button id="pauseButton">⏸</button>
+        <button id="playButton">▶︎</button>
         <p id="score"></p>
 
         <p id="phrase"></p>
@@ -136,12 +136,8 @@
             dt = dt / scalar;
             /*  score = score - 1;
              document.getElementById('score').innerText = score; */
+            whatever();
 
-            document.getElementById('dt').innerText = dt.toString().slice(0, 5);
-
-
-            inPhrase = [];
-            document.getElementById('inPhrase').innerText = inPhrase.join('');
 
         }
 
@@ -150,16 +146,21 @@
 
             score = score + dt;
             document.getElementById('score').innerText = score.toString().slice(0, 5);
-            
-            dt = dt * scalar;
+            whatever();
 
-            inPhrase = [];
-            document.getElementById('inPhrase').innerText = inPhrase.join('');
 
-            document.getElementById('dt').innerText = dt.toString().slice(0, 5);
+
 
         }
 
+        function whatever() {
+            dt = dt * scalar;
+
+            document.getElementById('dt').innerText = dt.toString().slice(0, 5);
+
+            inPhrase = [];
+            document.getElementById('inPhrase').innerText = inPhrase.join('');
+        }
 
         function checkPhrase() {
 
