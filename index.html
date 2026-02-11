@@ -96,7 +96,7 @@
 
         function tick() {
             timer = ((timer + dt));
-            document.getElementById('timer').innerText = timer;
+            document.getElementById('timer').innerText = timer.toString().slice(0, 5);
             tickPhrase();
         }
 
@@ -137,7 +137,7 @@
             /*  score = score - 1;
              document.getElementById('score').innerText = score; */
 
-            document.getElementById('dt').innerText = dt;
+            document.getElementById('dt').innerText = dt.toString().slice(0, 5);
 
 
             inPhrase = [];
@@ -149,15 +149,17 @@
             beep();
 
             score = score + dt;
-            document.getElementById('score').innerText = score;
+            document.getElementById('score').innerText = score.toString().slice(0, 5);
+            
+            dt = dt * scalar;
 
             inPhrase = [];
             document.getElementById('inPhrase').innerText = inPhrase.join('');
 
-            dt = dt * scalar;
-            document.getElementById('dt').innerText = dt;
+            document.getElementById('dt').innerText = dt.toString().slice(0, 5);
 
         }
+
 
         function checkPhrase() {
 
